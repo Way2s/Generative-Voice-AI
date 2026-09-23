@@ -14,3 +14,7 @@ def is_retryable_status(status_code: int) -> bool:
 
 def linear_backoff(attempt: int, step: float = 1.5, cap: float = 20.0) -> float:
     return round(min(cap, max(0.5, attempt * step)), 2)
+
+
+def is_fatal_client_error(status_code: int) -> bool:
+    return 400 <= status_code < 500 and status_code not in {408, 425, 429}
